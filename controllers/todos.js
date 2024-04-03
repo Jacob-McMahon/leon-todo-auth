@@ -8,6 +8,7 @@ module.exports = {
         try{
             const todoItems = await Todo.find({userId:req.user.id})
             const itemsLeft = await Todo.countDocuments({userId:req.user.id, completed: false})
+            //best to come back and double check
             const timeleft = await Todo.find({deadline: req.user.deadline})
             if (timeleft == 0) {
                 timeleft = date
