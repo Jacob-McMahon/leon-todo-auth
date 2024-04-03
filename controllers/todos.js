@@ -3,11 +3,15 @@ const Todo = require('../models/Todo')
 module.exports = {
     getTodos: async (req,res)=>{
         console.log(req.user)
-        const date = new Date()
+        let date = new Date()
+
         try{
             const todoItems = await Todo.find({userId:req.user.id})
             const itemsLeft = await Todo.countDocuments({userId:req.user.id, completed: false})
             const timeleft = await Todo.find({deadline: req.user.deadline})
+            if (timeleft == 0) {
+                timeleft = date
+            }
             const done = (Math.ceil((timeleft - date)/(8.64e+7)))
             res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, deadline: done})
         }catch(err){

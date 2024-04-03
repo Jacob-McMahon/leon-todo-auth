@@ -16,7 +16,16 @@
 <%= /*added a deadline to the schema and todo list*/
     /*could go even further to take in a date and then return a countdown
       by taking the date at the time of refreshing with the "due date"%>
-                <span class="deadline"><%= deadline %> days remaining</span>
+     
+     
+      <% if (el.deadline === 0) { %>
+        <span> </span> 
+    <% } %>
+    <% else if (el.deadline < 0) { %>
+        <span>This task is late by <% el.deadline*-1 => days</span> 
+    <% } else {%>
+                <span class="deadline"><% deadline %> days remaining</span>
+    <% } %>
                 <span class='del'> Delete </span>
             </li>
     <% }) %>    
